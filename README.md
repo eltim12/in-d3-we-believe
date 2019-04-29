@@ -8,5 +8,5 @@ live-server --host=localhost
 
 #### Try it out:
 
-[]: http://avengers.michaeltim.com	"Avengers"
+[1]: http://avengers.michaeltim.com	"Avengers"
 
