@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+    body {
+        /* background: black; */
+        background: #6441A5;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #060606, #37007a);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #060606, #37007a);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        margin: auto;
+    }
+
+    .arc-body {
+        transition: all 0.3s linear
+    }
+
+
+    #svg {
+        margin-top: 12rem;
+    }
+
+    .arc-text {
+        font: 16px sans-serif;
+    }
+
+    .arc-center {
+        fill: none;
+    }
+
+    #credit {
+        position: absolute;
+        font: 10px sans-serif;
+        right: 10px;
+        bottom: 10px;
+        color: #ddd;
+    }
+
+    #credit a {
+        color: inherit;
+    }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-bottom: 3rem;
+    }
+
+    @font-face {
+        font-weight: normal;
+        font-style: normal;
+        font-family: 'feathericons';
+        src: url('../fonts/feathericons/feathericons.eot?-8is7zf');
+        src: url('../fonts/feathericons/feathericons.eot?#iefix-8is7zf') format('embedded-opentype'),
+            url('../fonts/feathericons/feathericons.woff?-8is7zf') format('woff'),
+            url('../fonts/feathericons/feathericons.ttf?-8is7zf') format('truetype'),
+            url('../fonts/feathericons/feathericons.svg?-8is7zf#feathericons') format('svg');
+    }
+
+    .grid {
+        position: relative;
+        margin: 0 auto;
+        padding: 1em 0 4em;
+        max-width: 1000px;
+        list-style: none;
+        text-align: center;
+    }
+
+    /* Common style */
+    .grid figure {
+        position: relative;
+        float: left;
+        overflow: hidden;
+        margin: 10px 1%;
+        min-width: 320px;
+        max-width: 480px;
+        max-height: 360px;
+        width: 48%;
+        background: #3085a3;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .grid figure img {
+        position: relative;
+        display: block;
+        min-height: 100%;
+        max-width: 100%;
+        opacity: 0.8;
+    }
+
+    /* ============[C A P T I O N]================ */
+    .grid figure figcaption {
+
+        padding: 2em;
+        color: white;
+        text-transform: uppercase;
+        font-size: 1rem;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .grid figure figcaption::before,
+    .grid figure figcaption::after {
+        pointer-events: none;
+    }
+
+    .grid figure figcaption,
+    .grid figure figcaption>a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Anchor will cover the whole item by default */
+    /* For some effects it will show as a button */
+    .grid figure figcaption>a {
+        z-index: 1000;
+        text-indent: 200%;
+        white-space: nowrap;
+        font-size: 0;
+        opacity: 0;
+    }
+
+    .grid figure h2 {
+        word-spacing: -0.15em;
+        font-weight: 300;
+    }
+
+    .grid figure h2 span {
+        font-weight: 800;
+    }
+
+    .grid figure h2,
+    .grid figure p {
+        margin: 0;
+    }
+
+    .grid figure p {
+        letter-spacing: 1px;
+        font-size: 68.5%;
+    }
+
+    figure.effect-bubba {
+        background: #000000;
+    }
+
+    figure.effect-bubba img {
+        opacity: 0.7;
+        -webkit-transition: opacity 0.35s;
+        transition: opacity 0.35s;
+    }
+
+    figure.effect-bubba:hover img {
+        opacity: 0.4;
+    }
+
+    figure.effect-bubba figcaption::before,
+    figure.effect-bubba figcaption::after {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        bottom: 30px;
+        left: 30px;
+        content: '';
+        opacity: 0;
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+    }
+
+
+    /* =============[B O R D E R  T O P   B O T T O M]========== */
+    figure.effect-bubba figcaption::before {
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+        -webkit-transform: scale(0, 1);
+        transform: scale(0, 1);
+    }
+
+    /* =============[B O R D E R  R I G H T   L E F T]========== */
+    figure.effect-bubba figcaption::after {
+        border-right: 1px solid #fff;
+        border-left: 1px solid #fff;
+        -webkit-transform: scale(1, 0);
+        transform: scale(1, 0);
+    }
+
+    figure.effect-bubba h3 {
+        padding-top: 50%;
+        -webkit-transition: -webkit-transform 0.35s;
+        transition: transform 0.35s;
+        -webkit-transform: translate3d(0, -20px, 0);
+        transform: translate3d(0, -20px, 0);
+    }
+
+    figure.effect-bubba p {
+        padding: 20px 2.5em;
+        opacity: 0;
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transform: translate3d(0, 20px, 0);
+        transform: translate3d(0, 20px, 0);
+    }
+
+    figure.effect-bubba:hover figcaption::before,
+    figure.effect-bubba:hover figcaption::after {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    figure.effect-bubba:hover h3,
+    figure.effect-bubba:hover p {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+</style>
+
+<body>
+    <div class="container" style="max-width: 1393px">
+        <img class="center" src="https://ya-webdesign.com/images/avengers-2-logo-png-12.png" alt="#"
+            data-aos="fade-down" data-aos-duration="1500">
+        <div class="row">
+            <div class="col-6">
+                <div class="grid">
+                    <div class="row">
+                        <div class="col-6">
+                            <figure data-aos="fade-up" data-aos-duration="1500" id="ironman" class="effect-bubba">
+                                <img src="https://media.comicbook.com/2019/04/iron-man-bosslogic-poster-1168892.jpeg"
+                                    alt="img02" />
+                                <figcaption>
+                                    <h3>Iron <span>Man</span></h3>
+                                    <a href="#">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure data-aos="fade-up" data-aos-duration="1500" id="captain-america"
+                                class="effect-bubba">
+                                <img src="https://media.comicbook.com/2019/04/captain-america-poster-bosslogic-1168891.jpeg"
+                                    alt="img02" />
+                                <figcaption>
+                                    <h3>Captain <span>America</span></h3>
+                                    <a href="#">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure data-aos="fade-up" data-aos-duration="1500" id="thor" class="effect-bubba">
+                                <img src="https://media.comicbook.com/2019/04/thor-poster-bosslogic-1168894.jpeg"
+                                    alt="img02" />
+                                <figcaption>
+                                    <h3><span>Thor</span></h3>
+                                    <a href="#">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure data-aos="fade-up" data-aos-duration="1500" id="hulk" class="effect-bubba">
+                                <img src="https://media.comicbook.com/2019/04/banner-poster-bosslogic-1168889.jpeg"
+                                    alt="img02" />
+                                <figcaption>
+                                    <h3>The <span>Hulk</span></h3>
+                                    <a href="#">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure data-aos="fade-up" data-aos-duration="1500" id="black-widow" class="effect-bubba">
+                                <img src="https://media.comicbook.com/2019/04/black-widow-poster-bosslogic-1168890.jpeg"
+                                    alt="img02" />
+                                <figcaption>
+                                    <h3>Black <span>Widow</span></h3>
+                                    <a href="#">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-6">
+                            <figure data-aos="fade-up" data-aos-duration="1500" id="ronin" class="effect-bubba">
+                                <img src="https://media.comicbook.com/2019/04/ronin-poster-bosslogic-1168893.jpeg"
+                                    alt="img02" />
+                                <figcaption>
+                                    <h3><span>Ronin</span></h3>
+                                    <a href="#">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="svg" class="col-6">
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="script.js"></script>
+</body>
