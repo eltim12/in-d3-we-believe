@@ -7,6 +7,4 @@ live-server --host=localhost
 ````
 
 #### Try it out:
-
-[1]: http://avengers.michaeltim.com	"Avengers"
-
+http://avengers.michaeltim.com
